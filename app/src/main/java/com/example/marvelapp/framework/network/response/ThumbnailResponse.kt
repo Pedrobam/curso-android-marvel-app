@@ -6,5 +6,5 @@ data class ThumbnailResponse(
     @SerializedName("path")
     val path: String,
     @SerializedName("extension")
-    val extensionPath: String
+    val extension: String
 )
