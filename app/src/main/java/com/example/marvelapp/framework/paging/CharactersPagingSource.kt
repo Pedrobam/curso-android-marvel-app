@@ -8,7 +8,7 @@ import com.example.marvelapp.framework.network.response.DataWrapperResponse
 import com.example.marvelapp.framework.network.response.toCharacterModel
 
 class CharactersPagingSource(
-    private val remoteDataSource: CharactersRemoteDataSource<DataWrapperResponse>,
+    private val remoteDataSource: CharactersRemoteDataSource,
     private val query: String
 ): PagingSource<Int, Character>() {
 
@@ -25,11 +25,11 @@ class CharactersPagingSource(
 
             val response = remoteDataSource.fetchCharacters(queries)
 
-            val responseOffset = response.data.offset
-            val totalCharacters = response.data.total
+            val responseOffset = response.offset
+            val totalCharacters = response.total
 
             LoadResult.Page(
-                data = response.data.results.map { it.toCharacterModel() },
+                data = response.characters,
                 prevKey = null,
                 nextKey = if (responseOffset < totalCharacters) {
                     responseOffset + LIMIT
